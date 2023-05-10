@@ -21,12 +21,14 @@ const {
   getTopRatedProduct,
   getSpecialProduct,
   getBestProduct,
+  getFavProduct
 } = require("../controllers/product");
 
-router.route("/all_product").get(upload.single('image'), getURLbasedOnUser);
-router.route("/product_id/:id").get(getURLbasedOnId);
-router.route("/top_product").get(getTopRatedProduct);
-router.route("/special_product").get(getSpecialProduct);
-router.route("/best_product").get(getBestProduct);
+router.route("/all_product").get(getURLbasedOnUser);//done
+router.route("/product_id/:id").get(getURLbasedOnId);//done
+router.route("/top_product").get(getTopRatedProduct);//done
+router.route("/special_product").get(getSpecialProduct);//done
+router.route("/best_product").get(getBestProduct);//done
+router.route("/fav_product").get(getFavProduct);//done
 
 module.exports = router;

@@ -216,10 +216,52 @@ const getBestProduct = (req,res) => {
 }
 
 
+const getFavProduct = (req,res) => {
+  try {
+      db.query('SELECT * FROM `product` WHERE `IS_FAV`=1',async(err, resultData) => {
+          if (err) {
+              throw err;
+            } else {
+              for (let i = 0; i < resultData.length; i++) {
+                if (resultData[i].FILE_NAME !== null) {
+                  let imagePath = path.join(resultData[i].FILE_PATH, resultData[i].FILE_NAME);
+                  imagePath = imagePath.slice(1);
+                  console.log(imagePath, "sdhbfhghjhgghjkfbsdf");
+        
+                  try {
+                    const image = await fs.promises.readFile(imagePath);
+                    const compressedImage = await sharp(image)
+                      .resize(800, 600)
+                      .jpeg({ quality: 80 })
+                      .toBuffer();
+          
+                    let imageurl = compressedImage.toString('base64');
+                    let contentType = 'image/jpg';
+                    if (resultData[i].FILE_NAME.endsWith('.PNG')) {
+                      contentType = 'image/png';
+                    }
+                    resultData[i].FILE_NAME = "data:" + contentType + ";base64, " + imageurl;
+                  } catch (err) {
+                    console.error("Error while reading image file:", err);
+                  }
+                }
+              }
+        
+              res.status(200).json(resultData);
+            }
+      })
+
+  } catch (error) {
+      res.status(500).json({ Message: 'Server Issue or Something Went Wrong' })
+  }
+}
+
+
 module.exports = {
     getURLbasedOnUser,
     getURLbasedOnId,
     getTopRatedProduct,
     getSpecialProduct,
-    getBestProduct
+    getBestProduct,
+    getFavProduct
 }

@@ -18,9 +18,21 @@ app.use('/product',url)
 //API Call List;
 //http://localhost:7000/user/login-------->login;
 //http://localhost:7000/user/newuser-------->sigin;
-
 //http://localhost:7000/product/all_product--------->Get all product;
 //http://localhost:7000/product/product_id/7--------->Get particular product;
+
+//List of API Required 
+//Login
+//Signup
+//Favorite product
+//Add to cart
+//All products
+//Featured Products
+//Top Rated products
+//Special Offers
+//Best Sellers
+//filters
+
 
 
 //Server running;
